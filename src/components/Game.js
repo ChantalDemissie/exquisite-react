@@ -8,6 +8,29 @@ class Game extends Component {
 
   constructor(props) {
     super(props);
+
+    this.state = {
+      submissions: [],
+      currentPlayerNumber: 1,
+    }
+
+    // this.submissions = [];
+    // this.currentPlayerNumber = 1;
+
+    this.processPlayerSubmission = this.processPlayerSubmission.bind(this);
+  }
+
+  processPlayerSubmission(submission) {
+    console.log(this.state.submissions)
+    // this.submissions.push(submission);
+    // this.currentPlayerNumber += 1;
+    const submissions = this.state.submissions;
+    submissions.push(submission);
+    const currentPlayerNumber = this.state.currentPlayerNumber + 1;
+    this.setState({
+      submissions: submissions,
+      currentPlayerNumber: currentPlayerNumber,
+    });
   }
 
   render() {
@@ -34,7 +57,10 @@ class Game extends Component {
 
         <RecentSubmission />
 
-        <PlayerSubmissionForm />
+        <PlayerSubmissionForm
+          playerNumber={this.state.currentPlayerNumber}
+          playerSubmissionCallback={this.processPlayerSubmission}
+        />
 
         <FinalPoem />
 
